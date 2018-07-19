@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name="com.example.comment.CommentActivity"></activity>
+        <activity android:name="com.example.comment.CommentActivity" />
         <activity android:name="com.example.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.ui.SettingsActivity"></activity>
+        <activity android:name="com.example.ui.SettingsActivity" />
+        <activity
+            android:name="com.example.ui.PersonalActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name="com.example.ui.AccountSecurityActivity"></activity>
     </application>
 
 </manifest>

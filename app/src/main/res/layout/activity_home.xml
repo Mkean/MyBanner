@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.home.HomeActivity">
 
     <RelativeLayout
@@ -38,8 +39,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/top"
+        android:layout_marginRight="7dp"
         android:layout_marginTop="12dp"
-        android:paddingRight="7dp">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,11 +59,11 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_centerVertical="true"
-                    fresco:viewAspectRatio="1"
                     fresco:actualImageScaleType="focusCrop"
                     fresco:placeholderImage="@mipmap/ic_launcher"
                     fresco:placeholderImageScaleType="fitCenter"
-                    fresco:roundAsCircle="true" />
+                    fresco:roundAsCircle="true"
+                    fresco:viewAspectRatio="1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

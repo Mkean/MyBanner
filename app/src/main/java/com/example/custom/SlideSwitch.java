@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,7 +23,7 @@ public class SlideSwitch extends View {
     float radius;
     float lineStart; //直线段开始的位置（横坐标，即
     float lineEnd; //直线段结束的位置（纵坐标
-    float lineWidth;
+    float lineWidth;//直线线宽
     final int SCALE = 4; // 控件长度为滑动的圆的半径的倍数
     OnStateChangedListener onStateChangedListener;
 
@@ -75,8 +76,10 @@ public class SlideSwitch extends View {
         /*保持宽是高的SCALE / 2倍， 即圆的直径*/
         this.setMeasuredDimension(this.getMeasuredWidth(), this.getMeasuredWidth() * 2 / SCALE);
         viewWidth = this.getMeasuredWidth();
+        Log.e("TAG", viewWidth + "");
         radius = viewWidth / SCALE;
         lineWidth = radius * 2f; //直线宽度等于滑块直径
+
         curX = radius;
         centerY = this.getMeasuredWidth() / SCALE; //centerY为高度的一半
         lineStart = radius;
@@ -96,21 +99,21 @@ public class SlideSwitch extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(lineWidth);
         /*左边部分的线，绿色*/
-        mPaint.setColor(Color.BLUE);
+        mPaint.setColor(Color.parseColor("#FF7E00"));
         canvas.drawLine(lineStart, centerY, curX, centerY, mPaint);
         /*右边部分的线，灰色*/
-        mPaint.setColor(Color.GRAY);
+        mPaint.setColor(Color.parseColor("#F5F5F5"));
         canvas.drawLine(curX, centerY, lineEnd, centerY, mPaint);
 
         /*画圆*/
         /*画最左和最右的圆，直径为直线段宽度， 即在直线段两边分别再加上一个半圆*/
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(Color.GRAY);
+        mPaint.setColor(Color.parseColor("#F5F5F5"));
         canvas.drawCircle(lineEnd, centerY, lineWidth / 2, mPaint);
-        mPaint.setColor(Color.BLUE);
+        mPaint.setColor(Color.parseColor("#FF7E00"));
         canvas.drawCircle(lineStart, centerY, lineWidth / 2, mPaint);
         /*圆形滑块*/
-        mPaint.setColor(Color.LTGRAY);
+        mPaint.setColor(Color.WHITE);
         canvas.drawCircle(curX, centerY, radius, mPaint);
 
     }

@@ -1,19 +1,20 @@
 package com.example.home;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.base.BaseActivity;
 import com.example.mybanner.R;
 import com.example.ui.SettingsActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView mLeftClose;
     private ImageView mRightTask;
@@ -35,16 +36,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout mCustomerService;
     private RelativeLayout mSettings;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        initView();
-        initData();
-        setListener();
+    protected int setLayout() {
+
+        return R.layout.activity_home;
     }
 
-    private void setListener() {
+    protected void setListener() {
         mLeftClose.setOnClickListener(this);
         mRightTask.setOnClickListener(this);
         mPersonal.setOnClickListener(this);
@@ -67,12 +67,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mSettings.setOnClickListener(this);
     }
 
-    private void initData() {
+    protected void initData() {
         Uri parse = Uri.parse("https://cbu01.alicdn.com/img/ibank/2018/147/387/8580783741_1348415983.400x400.jpg");
-        mHeadPortrait.setImageURI(parse)    ;
+        mHeadPortrait.setImageURI(parse);
     }
 
-    private void initView() {
+    protected void initView() {
         mLeftClose = (ImageView) findViewById(R.id.left_close);
         mRightTask = (ImageView) findViewById(R.id.right_task);
         mPersonal = (RelativeLayout) findViewById(R.id.personal);
@@ -93,6 +93,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mCustomerService = (RelativeLayout) findViewById(R.id.customerService);
         mSettings = (RelativeLayout) findViewById(R.id.settings);
 
+    }
+
+    //重写back事件，改变退出状态
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
     }
 
     @Override
@@ -164,10 +173,4 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-    public void startActivity(Class<?> z) {
-        Intent intent = new Intent(this, z);
-        startActivity(intent);
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
-    }
 }
