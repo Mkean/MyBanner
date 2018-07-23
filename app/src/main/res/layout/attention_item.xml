@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/attention_item_interested_users_1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/attention_item_interested_users_top">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/attention_item_interested_users_1_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="21dp"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="25dp" />
+
+        <RelativeLayout
+            android:id="@+id/attention_item_interested_users_1_textarea"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/attention_item_interested_users_1_img">
+
+
+            <TextView
+                android:id="@+id/attention_item_interested_users_1_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大卫船长"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/attention_item_interested_users_1_article1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="101篇文章"
+                android:textColor="@color/text_gray_color"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/attention_item_interested_users_1_fans1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/attention_item_interested_users_1_article1"
+                android:text="2012个粉丝"
+                android:textColor="@color/text_gray_color"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/attention_item_interested_users_1_attention1"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/attention_bg"
+            android:gravity="center"
+            android:text="关注"
+            android:textColor="@color/croci"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+</LinearLayout>

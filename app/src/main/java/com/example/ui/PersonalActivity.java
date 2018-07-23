@@ -2,18 +2,25 @@ package com.example.ui;
 
 import android.app.Dialog;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.example.base.BaseActivity;
+import com.example.bean.AreaData;
+import com.example.bean.AreaModel;
 import com.example.mybanner.R;
 import com.example.mylibrary.DatePickerDialog;
 import com.example.mylibrary.DateUtil;
+import com.example.utils.Utils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +46,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout mSex_rlv;
     private RelativeLayout mChild_age_rlv;
     private RelativeLayout mCity_rlv;
+    private OptionsPickerView pickerView;
 
 
     @Override
@@ -61,8 +69,10 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initData() {
+        pickerView = new OptionsPickerView(this);
         Uri parse = Uri.parse("https://cbu01.alicdn.com/img/ibank/2018/147/387/8580783741_1348415983.400x400.jpg");
         mHeadPortrait.setImageURI(parse);
+        new MyAsyncTask().execute();
     }
 
     @Override
@@ -81,6 +91,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         mChild_age_rlv = (RelativeLayout) findViewById(R.id.child_age_rlv);//孩子年龄
         mCity = (TextView) findViewById(R.id.city);//城市
         mCity_rlv = (RelativeLayout) findViewById(R.id.city_rlv);//城市
+
 
     }
 
@@ -105,6 +116,7 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
             case R.id.child_age_rlv:
                 break;
             case R.id.city_rlv:
+                pickerView.show();
                 break;
             default:
                 break;
@@ -148,5 +160,55 @@ public class PersonalActivity extends BaseActivity implements View.OnClickListen
         dateDialog = builder.create();
         dateDialog.show();
 
+    }
+
+    class MyAsyncTask extends AsyncTask<Void, Void, AreaModel> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected AreaModel doInBackground(Void... params) {
+
+            return Utils.readAreaJson(getApplicationContext(), AreaModel.class);
+        }
+
+        @Override
+        protected void onPostExecute(AreaModel areaModel) {
+            super.onPostExecute(areaModel);
+
+            if (null == areaModel) {
+                return;
+            }
+            List<AreaData> datas = areaModel.getData();
+            if (null == datas || datas.isEmpty()) {
+                return;
+            }
+            final ArrayList<String> areaList = new ArrayList<>();
+            final ArrayList<ArrayList<String>> cities = new ArrayList<>();
+
+            for (AreaData data : datas) {
+                if (null == data) {
+                    continue;
+                }
+                if (!TextUtils.isEmpty(data.getName())) {
+                    areaList.add(data.getName());
+                }
+                cities.add(data.getCities());
+            }
+
+            if (null != pickerView) {
+                pickerView.setPicker(areaList, cities, true);
+                pickerView.setCyclic(false);
+
+                pickerView.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int option2, int options3) {
+                        mCity.setText(getString(R.string.area_text, areaList.get(options1) + " - " + cities.get(options1).get(option2)));
+                    }
+                });
+            }
+        }
     }
 }

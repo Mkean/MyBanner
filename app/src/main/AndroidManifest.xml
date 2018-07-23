@@ -25,7 +25,8 @@
         <activity
             android:name="com.example.ui.PersonalActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name="com.example.ui.AccountSecurityActivity"></activity>
+        <activity android:name="com.example.ui.AccountSecurityActivity" />
+        <activity android:name="com.example.ui.AttentionActivity"></activity>
     </application>
 
 </manifest>

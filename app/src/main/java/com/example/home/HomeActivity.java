@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.base.BaseActivity;
 import com.example.mybanner.R;
+import com.example.ui.AttentionActivity;
 import com.example.ui.SettingsActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -136,7 +137,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case R.id.attention:
-
+                startActivity(AttentionActivity.class);
                 break;
             case R.id.collections:
 
